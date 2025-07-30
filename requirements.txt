@@ -1,0 +1,4 @@
+Pillow==10.2.0
+psutil==7.0.0
+pyinstaller==6.14.2
+pywin32==306 ; sys_platform == 'win32'
