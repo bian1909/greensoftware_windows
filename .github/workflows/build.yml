@@ -29,7 +29,7 @@ jobs:
           wine "C:\\Program Files (x86)\\Inno Setup 6\\iscc.exe" installer.iss  # Ejecutamos el script Inno Setup
 
       - name: Upload the Windows installer as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: GreenSoftwareMonitor_Setup.exe  # Nombre del instalador generado
           path: Installer/GreenSoftwareMonitor_Setup.exe  # Ruta donde se guarda el instalador
