@@ -3,33 +3,34 @@ name: Build Windows Installer
 on:
   push:
     branches:
-      - main  # Esto se ejecuta solo cuando empujes cambios a la rama principal
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Usamos Ubuntu porque es donde Wine se puede instalar
+    runs-on: windows-latest
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4  # Clona tu repo en la máquina virtual de GitHub
+        uses: actions/checkout@v4
 
-      - name: Install Wine
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
         run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update
-          sudo apt install -y wine64 wine32  # Instalamos Wine en la máquina virtual
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt
 
-      - name: Set up Inno Setup
+      - name: Build with PyInstaller
         run: |
-          wget https://files.jrsoftware.org/is/6/innosetup-6.2.2.exe  # Descargamos Inno Setup
-          wine innosetup-6.2.2.exe  # Instalamos Inno Setup usando Wine
+          pyinstaller --noconfirm --onefile --windowed --icon=assets/icono.ico main.py
 
-      - name: Run Inno Setup to build the installer
-        run: |
-          wine "C:\\Program Files (x86)\\Inno Setup 6\\iscc.exe" installer.iss  # Ejecutamos el script Inno Setup
-
-      - name: Upload the Windows installer as artifact
+      - name: Upload installer as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GreenSoftwareMonitor_Setup.exe  # Nombre del instalador generado
-          path: Installer/GreenSoftwareMonitor_Setup.exe  # Ruta donde se guarda el instalador
+          name: GreenInstaller
+          path: dist/*.exe
+
