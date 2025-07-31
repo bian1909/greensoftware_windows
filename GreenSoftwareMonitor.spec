@@ -1,9 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
 a = Analysis(
     ['main.py'],
-    pathex=[],
+    pathex=['.'],
     binaries=[],
     datas=[('assets/*', 'assets'), ('fonts/*', 'fonts')],
     hiddenimports=['psutil', 'PIL', 'proyectoco2'],
@@ -20,6 +19,7 @@ exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
+    a.zipfiles, 
     a.datas,
     [],
     name='GreenSoftwareMonitor',
@@ -34,6 +34,6 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     runtime_tmpdir=None,
-    single_file=True  # <<< ESTA ES LA CLAVE
+    single_file=True 
 )
 
