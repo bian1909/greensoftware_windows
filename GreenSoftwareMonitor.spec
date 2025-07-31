@@ -4,7 +4,7 @@
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[('/home/bian/.wine/drive_c/windows/system32/vcruntime140.dll', '.'), ('/home/bian/.wine/drive_c/windows/system32/msvcp140.dll', '.')],
+    binaries=[],
     datas=[('assets/*', 'assets'), ('fonts/*', 'fonts')],
     hiddenimports=['psutil', 'PIL', 'proyectoco2'],
     hookspath=[],
