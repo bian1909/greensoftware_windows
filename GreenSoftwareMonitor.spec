@@ -19,8 +19,9 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.datas,
     [],
-    exclude_binaries=True,
     name='GreenSoftwareMonitor',
     debug=False,
     bootloader_ignore_signals=False,
@@ -32,13 +33,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    runtime_tmpdir=None,
+    single_file=True  # <<< ESTA ES LA CLAVE
 )
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='GreenSoftwareMonitor',
-)
+
